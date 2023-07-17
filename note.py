@@ -34,7 +34,12 @@ def notice_functions():
             if option == 1:
                 about_notice(notice)
             elif option == 2:
-                about_notice(search_by_ID(notice))  
+                about_notice(search_by_ID(notice))
+            elif option == 3:
+                about_notice(search_by_date(notice))    
+            elif option == 4:
+                    add_new_note(notice)
+                    add_to_cvs('note.csv', notice)      
 
 
 # 1. Отображение заметки
@@ -51,4 +56,20 @@ def search_by_ID(notice):
     for elem in notice:
         if elem['ID'] == number:
             output.append(elem)
-    return output    
+    return output
+
+  # 3. Поиск по дате
+def search_by_date(notice):
+    count = input('Введите дату для поиска: ')
+    output = []
+    for elem in notice:
+        if elem['Дата создания'] == count:
+            output.append(elem)
+    return output            
+
+# 4. Добавить новую заметку
+def add_new_note(notice):
+    record = dict()
+    for u in notice[0].keys():
+        record[u] = input(f'Введите {u}: ')
+    notice.append(record) 
