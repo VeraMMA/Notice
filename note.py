@@ -42,7 +42,15 @@ def notice_functions():
                     add_to_cvs('note.csv', notice)
             elif option == 5:
                     remove_note(notice)
-                    rewrite_to_cvs('note.csv', notice)              
+                    rewrite_to_cvs('note.csv', notice)
+            elif option == 6:   
+                    change_note_info(notice)
+                    rewrite_to_cvs('note.csv', notice)
+            elif option == 7:
+                    save_list()
+            
+            
+            option = show_menu()                     
 
 
 # 1. Отображение заметки
@@ -98,4 +106,24 @@ def rewrite_to_cvs(filename, notice):
             line = ' '
             for i in notice[i].values():
                 line += i + ','
-            data.write(f'{line[:-1]}\n')    
+            data.write(f'{line[:-1]}\n')   
+
+# 6. Изменение данных
+def change_note_info(notice):
+    user = input('Введите название изменения:') 
+    changed_data = input('Введите данные: ')    
+    new_data = input('Введите новое значение данных: ')
+    for elem in notice:
+        for i in elem.values():
+            if i == user:
+                elem[changed_data] = elem[changed_data].replace(elem[changed_data],new_data)
+
+# 7. Сохранение текста
+def save_list():
+    filename = input('Введите запись для сохранения: ')
+    shutil.copyfile('note.csv',f'{filename}.csv')
+# 8. Закончить работу cо справочником            
+
+import shutil
+notice_functions() 
+                                   
