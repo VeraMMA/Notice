@@ -39,7 +39,10 @@ def notice_functions():
                 about_notice(search_by_date(notice))    
             elif option == 4:
                     add_new_note(notice)
-                    add_to_cvs('note.csv', notice)      
+                    add_to_cvs('note.csv', notice)
+            elif option == 5:
+                    remove_note(notice)
+                    rewrite_to_cvs('note.csv', notice)              
 
 
 # 1. Отображение заметки
@@ -73,3 +76,26 @@ def add_new_note(notice):
     for u in notice[0].keys():
         record[u] = input(f'Введите {u}: ')
     notice.append(record) 
+
+def add_to_cvs(filename, notice):
+    with open(filename, 'a', encoding='utf-8') as data:
+        line = ''
+        for i in notice[-1].values():
+            line += i + ','
+        data.write(f'{line[:-1]}\n')
+
+# 5. Удаление записи 
+def remove_note(notice):
+    user = input('Введите запись для удаления: ')
+    for elem in notice:
+        for i in elem.values():
+            if i == user:
+                notice.remove(elem)
+
+def rewrite_to_cvs(filename, notice):
+    with open(filename, 'w', encoding='utf-8') as data:
+        for i in range(len(notice)):
+            line = ' '
+            for i in notice[i].values():
+                line += i + ','
+            data.write(f'{line[:-1]}\n')    
